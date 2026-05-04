@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Trip Purwokerto · 14–16 Mei 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --forest:   #1C3A0E;
+  --forest2:  #2D5A1B;
+  --sage:     #4A7C2F;
+  --leaf:     #639922;
+  --mint:     #EAF3DE;
+  --stone:    #F5F3EE;
+  --parchment:#FAFAF7;
+  --ink:      #161612;
+  --charcoal: #3A3A35;
+  --smoke:    #7A7870;
+  --dust:     #C8C4BA;
+  --line:     #E8E4DC;
+  --white:    #FFFFFF;
+  --sky:      #185FA5;
+  --sky-pale: #EBF3FD;
+  --amber:    #854F0B;
+  --amber-pale:#FDF3E3;
+  --warn:     #D44000;
+  --warn-pale:#FEF0EA;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: var(--stone);
+  color: var(--ink);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* HERO */
+.hero {
+  background: var(--forest);
+  position: relative;
+  overflow: hidden;
+}
+.hero-texture {
+  position: absolute; inset: 0;
+  background-image:
+    radial-gradient(ellipse 80% 60% at 90% 20%, rgba(99,153,34,0.18) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 80% at 10% 80%, rgba(45,90,27,0.3) 0%, transparent 60%);
+}
+.hero-ring1 {
+  position: absolute; width: 320px; height: 320px;
+  border-radius: 50%; border: 1px solid rgba(255,255,255,0.06);
+  top: -80px; right: -80px;
+}
+.hero-ring2 {
+  position: absolute; width: 180px; height: 180px;
+  border-radius: 50%; border: 1px solid rgba(255,255,255,0.04);
+  bottom: -40px; left: -30px;
+}
+.hero-inner {
+  position: relative; z-index: 1;
+  padding: 48px 22px 32px;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 20px; padding: 4px 12px;
+  font-size: 11px; font-weight: 500;
+  color: rgba(255,255,255,0.7);
+  letter-spacing: 0.08em; text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.dot-pulse {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #7EC850; flex-shrink: 0;
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%,100% { opacity:1; transform:scale(1); }
+  50% { opacity:0.5; transform:scale(0.8); }
+}
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 40px; font-weight: 500;
+  color: #fff; line-height: 1.1; margin-bottom: 6px;
+}
+.hero-title em { font-style: italic; color: #A8D878; }
+.hero-subtitle {
+  font-size: 13px; color: rgba(255,255,255,0.5);
+  margin-bottom: 24px; font-weight: 300;
+}
+.train-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.train-card {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 12px; padding: 10px 12px;
+}
+.train-lbl { font-size: 10px; color: rgba(255,255,255,0.45); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 3px; }
+.train-name { font-size: 12px; font-weight: 600; color: #fff; margin-bottom: 1px; }
+.train-detail { font-size: 10px; color: rgba(255,255,255,0.5); }
+.train-time { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 400; color: #A8D878; margin-top: 4px; }
+
+/* PROGRESS BAR */
+.progress-strip {
+  background: var(--white);
+  border-bottom: 1px solid var(--line);
+  padding: 12px 20px;
+  position: sticky; top: 0; z-index: 100;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+.prog-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 7px; }
+.prog-lbl { font-size: 12px; color: var(--smoke); }
+.prog-pct { font-size: 13px; font-weight: 600; color: var(--forest2); }
+.bar-track { height: 4px; background: var(--line); border-radius: 2px; overflow: hidden; }
+.bar-fill {
+  height: 100%; width: 0%; border-radius: 2px;
+  background: linear-gradient(90deg, var(--leaf), #8BC34A);
+  transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* CONTENT WRAP */
+.wrap { padding: 18px 14px 0; }
+
+/* BUDGET */
+.budget-card {
+  background: var(--white); border-radius: 18px;
+  border: 1px solid var(--line); overflow: hidden; margin-bottom: 10px;
+}
+.budget-head {
+  background: var(--forest2); padding: 13px 16px;
+  display: flex; align-items: center; justify-content: space-between;
+  cursor: pointer; -webkit-tap-highlight-color: transparent;
+}
+.budget-head-left { display: flex; align-items: center; gap: 10px; }
+.budget-icon {
+  width: 32px; height: 32px; border-radius: 9px;
+  background: rgba(255,255,255,0.15);
+  display: flex; align-items: center; justify-content: center; font-size: 15px;
+}
+.budget-head-title { font-size: 13px; font-weight: 600; color: #fff; }
+.budget-head-sub { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 1px; }
+.budget-total { font-family: 'Playfair Display', serif; font-size: 21px; color: #A8D878; }
+.budget-chev { color: rgba(255,255,255,0.5); font-size: 11px; margin-left: 6px; transition: transform 0.3s; }
+.budget-body { padding: 0 16px 14px; display: none; }
+.budget-body.open { display: block; }
+.b-row {
+  display: flex; justify-content: space-between;
+  padding: 9px 0; border-bottom: 1px solid var(--line);
+  font-size: 13px;
+}
+.b-row:last-child { border-bottom: none; }
+.b-lbl { color: var(--smoke); }
+.b-val { font-weight: 500; color: var(--charcoal); }
+.b-note { font-size: 11px; color: var(--dust); text-align: center; padding-top: 4px; }
+
+/* WARNING */
+.warn-box {
+  background: var(--warn-pale);
+  border: 1px solid rgba(212,64,0,0.2);
+  border-left: 3px solid var(--warn);
+  border-radius: 12px; padding: 11px 13px; margin-bottom: 16px;
+}
+.warn-title { font-size: 12px; font-weight: 600; color: var(--warn); margin-bottom: 3px; }
+.warn-text { font-size: 12px; color: #7A3010; line-height: 1.55; }
+
+/* DAY BLOCK */
+.day-block { margin-bottom: 18px; }
+.day-label {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 14px 6px;
+}
+.day-pill {
+  border-radius: 20px; padding: 4px 11px;
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.05em;
+}
+.day-1 .day-pill { background: #E6F1FB; color: #0C447C; }
+.day-2 .day-pill { background: var(--mint); color: var(--forest); }
+.day-3 .day-pill { background: var(--warn-pale); color: #7A3010; }
+.day-sub { font-size: 12px; color: var(--smoke); }
+.day-cnt { margin-left: auto; font-size: 11px; font-weight: 600; color: var(--leaf); }
+
+.items-card {
+  background: var(--white); border-radius: 18px;
+  border: 1px solid var(--line); overflow: hidden;
+  margin: 0 2px;
+}
+
+/* ITEM */
+.item {
+  display: flex; align-items: flex-start; gap: 11px;
+  padding: 13px 15px; border-bottom: 1px solid var(--line);
+  cursor: pointer; position: relative;
+  transition: background 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+.item:last-child { border-bottom: none; }
+.item:active { background: var(--stone); }
+.item.done { background: #F6FBF1; }
+
+.day-1 .item { border-left: 3px solid transparent; }
+.day-2 .item { border-left: 3px solid transparent; }
+.day-3 .item { border-left: 3px solid transparent; }
+.day-1 .item.done { border-left-color: #378ADD; }
+.day-2 .item.done { border-left-color: var(--leaf); }
+.day-3 .item.done { border-left-color: var(--warn); }
+
+.cb {
+  width: 23px; height: 23px; border-radius: 7px;
+  border: 1.5px solid var(--dust);
+  background: var(--stone);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-top: 2px;
+  transition: all 0.2s cubic-bezier(0.34,1.56,0.64,1);
+}
+.item.done .cb { background: var(--leaf); border-color: var(--leaf); transform: scale(0.93); }
+.chk { display: none; }
+.item.done .chk { display: block; }
+
+.item-body { flex: 1; min-width: 0; }
+.item-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 6px; margin-bottom: 2px; }
+.t-chip {
+  display: inline-flex; background: var(--sky-pale); color: var(--sky);
+  font-size: 10px; font-weight: 600; border-radius: 4px;
+  padding: 2px 6px; margin-right: 4px; flex-shrink: 0;
+  vertical-align: middle;
+}
+.item-title {
+  font-size: 13px; font-weight: 500; color: var(--ink);
+  line-height: 1.45; transition: color 0.2s;
+}
+.item.done .item-title { color: var(--dust); text-decoration: line-through; text-decoration-color: var(--leaf); }
+.cost {
+  flex-shrink: 0; font-size: 11px; font-weight: 600;
+  border-radius: 5px; padding: 2px 7px; align-self: flex-start; margin-top: 2px;
+  white-space: nowrap;
+}
+.cost.orange { color: var(--amber); background: var(--amber-pale); }
+.cost.gray { color: var(--smoke); background: var(--stone); }
+.cost.green { color: var(--forest2); background: var(--mint); }
+
+.item-meta { font-size: 11px; color: var(--smoke); line-height: 1.5; margin-top: 4px; }
+.item.done .item-meta { opacity: 0.4; }
+
+.wchip {
+  display: inline-flex; align-items: center;
+  background: var(--warn-pale); color: var(--warn);
+  font-size: 10px; font-weight: 600; border-radius: 4px;
+  padding: 2px 6px; margin-left: 4px;
+}
+
+.map-btn {
+  display: inline-flex; align-items: center; gap: 4px;
+  margin-top: 7px; padding: 5px 10px;
+  background: var(--parchment); border: 1px solid var(--line);
+  border-radius: 8px; font-size: 11px; font-weight: 500; color: var(--sky);
+  text-decoration: none; transition: background 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+.map-btn:active { background: var(--sky-pale); border-color: #B5D4F4; }
+.pin-svg { width: 12px; height: 12px; flex-shrink: 0; }
+
+/* FOOTER */
+.footer { text-align: center; padding: 28px 20px 50px; }
+.footer-emoji { font-size: 26px; margin-bottom: 8px; }
+.footer-text { font-size: 12px; color: var(--smoke); line-height: 1.7; }
+.footer-note { font-size: 11px; color: var(--dust); margin-top: 14px; }
+
+/* TOAST */
+.toast {
+  position: fixed; bottom: 20px; left: 50%;
+  transform: translateX(-50%) translateY(70px);
+  background: var(--forest2); color: #fff;
+  border-radius: 24px; padding: 9px 18px;
+  font-size: 12px; font-weight: 500;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.18);
+  z-index: 9999; opacity: 0;
+  transition: all 0.4s cubic-bezier(0.34,1.56,0.64,1);
+  white-space: nowrap; pointer-events: none;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ANIMATIONS */
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(14px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+.hero-inner  { animation: fadeUp 0.55s ease both; }
+.budget-card { animation: fadeUp 0.5s 0.08s ease both; }
+.warn-box    { animation: fadeUp 0.5s 0.14s ease both; }
+.day-block:nth-child(1) { animation: fadeUp 0.5s 0.18s ease both; }
+.day-block:nth-child(2) { animation: fadeUp 0.5s 0.24s ease both; }
+.day-block:nth-child(3) { animation: fadeUp 0.5s 0.30s ease both; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-texture"></div>
+  <div class="hero-ring1"></div>
+  <div class="hero-ring2"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow"><span class="dot-pulse"></span> Opsi B · Langsung ke Desa Buara</div>
+    <div class="hero-title">Purwokerto<br>&amp; <em>Baturaden</em></div>
+    <div class="hero-subtitle">14 – 16 Mei 2026 &nbsp;·&nbsp; Berdua &nbsp;·&nbsp; Naik Motor</div>
+    <div class="train-grid">
+      <div class="train-card">
+        <div class="train-lbl">Berangkat</div>
+        <div class="train-name">Sawunggalih</div>
+        <div class="train-detail">84I9RH0 · Eko CD · 112B</div>
+        <div class="train-time">13:15 PSE</div>
+      </div>
+      <div class="train-card">
+        <div class="train-lbl">Pulang</div>
+        <div class="train-name">Senja Utama YK</div>
+        <div class="train-detail">82Z9EOZ · Eko CC · 107B</div>
+        <div class="train-time">19:55 PWT</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="progress-strip">
+  <div class="prog-row">
+    <span class="prog-lbl" id="prog-lbl">Mulai centang item perjalanan kamu!</span>
+    <span class="prog-pct" id="prog-pct">0%</span>
+  </div>
+  <div class="bar-track"><div class="bar-fill" id="bar-fill"></div></div>
+</div>
+
+<div class="wrap">
+
+  <div class="budget-card">
+    <div class="budget-head" onclick="toggleBudget()">
+      <div class="budget-head-left">
+        <div class="budget-icon">💰</div>
+        <div>
+          <div class="budget-head-title">Estimasi biaya</div>
+          <div class="budget-head-sub">Tap untuk rincian lengkap</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;">
+        <div class="budget-total">Rp 1,114rb</div>
+        <div class="budget-chev" id="bchev">▼</div>
+      </div>
+    </div>
+    <div class="budget-body" id="bbudget">
+      <div class="b-row"><span class="b-lbl">Sewa motor 3 hari</span><span class="b-val">Rp 400.000</span></div>
+      <div class="b-row"><span class="b-lbl">Bensin total</span><span class="b-val">Rp 60.000</span></div>
+      <div class="b-row"><span class="b-lbl">Makan (estimasi)</span><span class="b-val">Rp 180.000</span></div>
+      <div class="b-row"><span class="b-lbl">Tiket wisata (2 orang)</span><span class="b-val">Rp 94.000</span></div>
+      <div class="b-row"><span class="b-lbl">Penginapan Baturaden</span><span class="b-val">Rp 300.000</span></div>
+      <div class="b-row"><span class="b-lbl">Oleh-oleh</span><span class="b-val">Rp 80.000</span></div>
+      <div class="b-note">* Belum termasuk tiket kereta PP Jakarta–Purwokerto</div>
+    </div>
+  </div>
+
+  <div class="warn-box">
+    <div class="warn-title">⚠️ Penting sebelum berangkat</div>
+    <div class="warn-text">Link Desa Buara sudah terpasang di itinerary ini. Tetap konfirmasi pin ke saudaramu via WhatsApp agar tidak nyasar saat malam hari pertama.</div>
+  </div>
+
+  <!-- DAY 1 -->
+  <div class="day-block day-1">
+    <div class="day-label">
+      <span class="day-pill">📅 Kamis, 14 Mei</span>
+      <span class="day-sub">Hari keberangkatan</span>
+      <span class="day-cnt" id="c1">0/5</span>
+    </div>
+    <div class="items-card">
+
+      <div class="item" data-day="1" onclick="toggle(this)">
+        <div class="cb"><svg class="chk" width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2.5 6.5l3 3.5 5-5.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="item-body">
+          <div class="item-top"><span class="item-title"><span class="t-chip">13:15</span>Boarding Sawunggalih di Pasar Senen</span></div>
+          <div class="item-meta">Kode 84I9RH0 · Ekonomi CD · Kereta 112B · tiba Purwokerto 17:41</div>
+        </div>
+      </div>
+
+      <div class="item" data-day="1" onclick="toggle(this)">
+        <div class="cb"><svg class="chk" width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2.5 6.5l3 3.5 5-5.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="item-body">
+          <div class="item-top">
+            <span class="item-title"><span class="t-chip">17:41</span>Tiba Stasiun Purwokerto</span>
+          </div>
+          <div class="item-meta">Istirahat sebentar · tunggu penyewa motor datang jam 19:00</div>
+          <a class="map-btn" href="https://maps.google.com/?q=Stasiun+Purwokerto" target="_blank" onclick="event.stopPropagation()">
+            <svg class="pin-svg" viewBox="0 0 16 16" fill="none"><path d="M8 1.5C5.52 1.5 3.5 3.52 3.5 6c0 3.75 4.5 8.5 4.5 8.5s4.5-4.75 4.5-8.5C12.5 3.52 10.48 1.5 8 1.5z" stroke="#185FA5" stroke-width="1.3"/><circle cx="8" cy="6" r="1.75" stroke="#185FA5" stroke-width="1.3"/></svg>
+            Stasiun Purwokerto
+          </a>
+        </div>
+      </div>
+
+      <div class="item" data-day="1" onclick="toggle(this)">
+        <div class="cb"><svg class="chk" width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2.5 6.5l3 3.5 5-5.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="item-body">
+          <div class="item-top">
+            <span class="item-title"><span class="t-chip">19:00</span>Sewa motor di Stasiun Purwokerto</span>
+            <span class="cost orange">Rp 400rb</span>
+          </div>
+          <div class="item-meta">Penyewa antar motor ke stasiun · bayar di muka · durasi s.d Sabtu 16 Mei jam 19:00</div>
+          <a class="map-btn" href="https://maps.google.com/?q=Stasiun+Purwokerto" target="_blank" onclick="event.stopPropagation()">
+            <svg class="pin-svg" viewBox="0 0 16 16" fill="none"><path d="M8 1.5C5.52 1.5 3.5 3.52 3.5 6c0 3.75 4.5 8.5 4.5 8.5s4.5-4.75 4.5-8.5C12.5 3.52 10.48 1.5 8 1.5z" stroke="#185FA5" stroke-width="1.3"/><circle cx="8" cy="6" r="1.75" stroke="#185FA5" stroke-width="1.3"/></svg>
+            Stasiun Purwokerto
+          </a>
+        </div>
+      </div>
+
+      <div class="item" data-day="1" onclick="toggle(this)">
+        <div class="cb"><svg class="chk" width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2.5 6.5l3 3.5 5-5.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="item-body">
+          <div class="item-top">
+            <span class="item-title"><span class="t-chip">19:10</span>Isi bensin penuh</span>
+            <span class="cost gray">Rp 20rb</span>
+          </div>
+          <div class="item-meta">Sebelum berangkat ke Desa Buara · perjalanan ~60 km</div>
+        </div>
+      </div>
+
+      <div class="item" data-day="1" onclick="toggle(this)">
+        <div class="cb"><svg class="chk" width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2.5 6.5l3 3.5 5-5.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="item-body">
+          <div class="item-top"><span class="item-title"><span class="t-chip">19:20</span>Berangkat ke Desa Buara, Purbalingga</span></div>
+          <div class="item-meta">~1–1,5 jam · lewat Sokaraja → Bobotsari → Desa Buara</div>
+          <a class="map-btn" href="https://maps.app.goo.gl/KJod6ChHZorym8HW9" target="_blank" onclick="event.stopPropagation()">
+            <svg class="pin-svg" viewBox="0 0 16 16" fill="none"><path d="M8 1.5C5.52 1.5 3.5 3.52 3.5 6c0 3.75 4.5 8.5 4.5 8.5s4.5-4.75 4.5-8.5C12.5 3.52 10.48 1.5 8 1.5z" stroke="#185FA5" stroke-width="1.3"/><circle cx="8" cy="6" r="1.75" stroke="#185FA5" stroke-width="1.3"/></svg>
+            Desa Buara, Purbalingga
+          </a>
+        </div>
+      </div>
+
+      <div class="item" data-day="1" onclick="toggle(this)">
+        <div class="cb"><svg class="chk" width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2.5 6.5l3 3.5 5-5.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="item-body">
+          <div class="item-top">
+            <span class="item-title"><span class="t-chip">~20:30</span>Tiba Desa Buara · silaturahmi &amp; makan malam</span>
+            <span class="cost green">Gratis</span>
+          </div>
+          <div class="item-meta">Menginap di rumah saudara · quality time bersama keluarga</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- DAY 2 -->
+  <div class="day-block day-2">
+    <div class="day-label">
+      <span class="day-pill">🌿 Jumat, 15 Mei</span>
+      <span class="day-sub">Ziarah &amp; Baturaden</span>
+      <span class="day-cnt" id="c2">0/9</span>
+    </div>
+    <div class="items-card">
+
+      <div class="item" data-day="2" onclick="toggle(this)">
+        <div class="cb"><svg class="chk" width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2.5 6.5l3 3.5 5-5.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="item-body">
+          <div class="item-top">
+            <span class="item-title"><span class="t-chip">07:00</span>Sarapan bersama keluarga</span>
+            <span class="cost gray">Rp 15rb</span>
+          </div>
+          <div class="item-meta">Makan di rumah saudara atau warung desa</div>
+        </div>
+      </div>
+
+      <div class="item" data-day="2" onclick="toggle(this)">
+        <div class="cb"><svg class="chk" width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2.5 6.5l3 3.5 5-5.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="item-body">
+          <div class="item-top"><span class="item-title"><span class="t-chip">08:00</span>Ziarah ke makam orang tua</span></div>
+          <div class="item-meta">Bawa air untuk doa · waktu seperlunya, jangan terburu-buru</div>
+          <a class="map-btn" href="https://maps.app.goo.gl/KJod6ChHZorym8HW9" target="_blank" onclick="event.stopPropagation()">
+            <svg class="pin-svg" viewBox="0 0 16 16" fill="none"><path d="M8 1.5C5.52 1.5 3.5 3.52 3.5 6c0 3.75 4.5 8.5 4.5 8.5s4.5-4.75 4.5-8.5C12.5 3.52 10.48 1.5 8 1.5z" stroke="#185FA5" stroke-width="1.3"/><circle cx="8" cy="6" r="1.75" stroke="#185FA5" stroke-width="1.3"/></svg>
+            Desa Buara, Purbalingga
+          </a>
+        </div>
+      </div>
+
+      <div class="item" data-day="2" onclick="toggle(this)">
+        <div class="cb"><svg class="chk" width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2.5 6.5l3 3.5 5-5.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="item-body">
+          <div class="item-top"><span class="item-title"><span class="t-chip">09:30</span>Silaturahmi bersama saudara</span></div>
+          <div class="item-meta">Quality time — nikmati sepenuhnya</div>
+        </div>
+      </div>
+
+      <div class="item" data-day="2" onclick="toggle(this)">
+        <div class="cb"><svg class="chk" width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2.5 6.5l3 3.5 5-5.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="item-body">
+          <div class="item-top">
+            <span class="item-title"><span class="t-chip">12:00</span>Makan siang bersama keluarga</span>
+            <span class="cost gray">Rp 20rb</span>
+          </div>
+          <div class="item-meta">Makan di rumah saudara</div>
+        </div>
+      </div>
+
+      <div class="item" data-day="2" onclick="toggle(this)">
+        <div class="cb"><svg class="chk" width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2.5 6.5l3 3.5 5-5.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="item-body">
+          <div class="item-top">
+            <span class="item-title"><span class="t-chip">13:00</span>Pamit &amp; berangkat ke Baturaden</span>
+            <span class="cost gray">Rp 25rb</span>
+          </div>
+          <div class="item-meta">Isi bensin di jalan · ~1–1,5 jam perjalanan ke Baturaden</div>
+        </div>
+      </div>
+
+      <div class="item" data-day="2" onclick="toggle(this)">
+        <div class="cb"><svg class="chk" width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2.5 6.5l3 3.5 5-5.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="item-body">
+          <div class="item-top">
+            <span class="item-title"><span class="t-chip">14:30</span>Curug Telu Baturaden <span class="wchip">⏰ Tutup 16:00</span></span>
+            <span class="cost orange">Rp 20rb</span>
+          </div>
+          <div class="item-meta">Air terjun 3 tingkat · bisa berenang di kolam alami · Rp 10.000/orang</div>
+          <a class="map-btn" href="https://maps.google.com/?q=Curug+Telu+Baturaden+Purwokerto" target="_blank" onclick="event.stopPropagation()">
+            <svg class="pin-svg" viewBox="0 0 16 16" fill="none"><path d="M8 1.5C5.52 1.5 3.5 3.52 3.5 6c0 3.75 4.5 8.5 4.5 8.5s4.5-4.75 4.5-8.5C12.5 3.52 10.48 1.5 8 1.5z" stroke="#185FA5" stroke-width="1.3"/><circle cx="8" cy="6" r="1.75" stroke="#185FA5" stroke-width="1.3"/></svg>
+            Curug Telu Baturaden
+          </a>
+        </div>
+      </div>
+
+      <div class="item" data-day="2" onclick="toggle(this)">
+        <div class="cb"><svg class="chk" width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2.5 6.5l3 3.5 5-5.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="item-body">
+          <div class="item-top">
+            <span class="item-title"><span class="t-chip">15:45</span>Lokawisata Baturaden <span class="wchip">⏰ Tutup 17:00</span></span>
+            <span class="cost orange">Rp 54rb</span>
+          </div>
+          <div class="item-meta">Hot spring, air terjun, foto-foto · Rp 27.000/orang</div>
+          <a class="map-btn" href="https://maps.google.com/?q=Lokawisata+Baturaden" target="_blank" onclick="event.stopPropagation()">
+            <svg class="pin-svg" viewBox="0 0 16 16" fill="none"><path d="M8 1.5C5.52 1.5 3.5 3.52 3.5 6c0 3.75 4.5 8.5 4.5 8.5s4.5-4.75 4.5-8.5C12.5 3.52 10.48 1.5 8 1.5z" stroke="#185FA5" stroke-width="1.3"/><circle cx="8" cy="6" r="1.75" stroke="#185FA5" stroke-width="1.3"/></svg>
+            Lokawisata Baturaden
+          </a>
+        </div>
+      </div>
+
+      <div class="item" data-day="2" onclick="toggle(this)">
+        <div class="cb"><svg class="chk" width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2.5 6.5l3 3.5 5-5.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="item-body">
+          <div class="item-top">
+            <span class="item-title"><span class="t-chip">17:30</span>Makan sore — sate kelinci + mendoan</span>
+            <span class="cost gray">Rp 50rb</span>
+          </div>
+          <div class="item-meta">Wajib dicoba! Warung di sepanjang area Baturaden</div>
+        </div>
+      </div>
+
+      <div class="item" data-day="2" onclick="toggle(this)">
+        <div class="cb"><svg class="chk" width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2.5 6.5l3 3.5 5-5.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="item-body">
+          <div class="item-top">
+            <span class="item-title"><span class="t-chip">18:30</span>Check-in penginapan Baturaden</span>
+            <span class="cost orange">Rp 300rb</span>
+          </div>
+          <div class="item-meta">Cari via Traveloka · "homestay Baturaden" · udara sejuk kaki Gunung Slamet</div>
+          <a class="map-btn" href="https://maps.google.com/?q=homestay+Baturaden+Purwokerto" target="_blank" onclick="event.stopPropagation()">
+            <svg class="pin-svg" viewBox="0 0 16 16" fill="none"><path d="M8 1.5C5.52 1.5 3.5 3.52 3.5 6c0 3.75 4.5 8.5 4.5 8.5s4.5-4.75 4.5-8.5C12.5 3.52 10.48 1.5 8 1.5z" stroke="#185FA5" stroke-width="1.3"/><circle cx="8" cy="6" r="1.75" stroke="#185FA5" stroke-width="1.3"/></svg>
+            Cari penginapan Baturaden
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- DAY 3 -->
+  <div class="day-block day-3">
+    <div class="day-label">
+      <span class="day-pill">🚆 Sabtu, 16 Mei</span>
+      <span class="day-sub">Wisata + pulang Jakarta</span>
+      <span class="day-cnt" id="c3">0/9</span>
+    </div>
+    <div class="items-card">
+
+      <div class="item" data-day="3" onclick="toggle(this)">
+        <div class="cb"><svg class="chk" width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2.5 6.5l3 3.5 5-5.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="item-body">
+          <div class="item-top">
+            <span class="item-title"><span class="t-chip">07:00</span>Sarapan di Baturaden</span>
+            <span class="cost gray">Rp 20rb</span>
+          </div>
+          <div class="item-meta">Bubur ayam atau nasi rames khas Banyumas</div>
+        </div>
+      </div>
+
+      <div class="item" data-day="3" onclick="toggle(this)">
+        <div class="cb"><svg class="chk" width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2.5 6.5l3 3.5 5-5.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="item-body">
+          <div class="item-top">
+            <span class="item-title"><span class="t-chip">08:00</span>Kebun Raya Baturaden</span>
+            <span class="cost gray">Rp 20rb</span>
+          </div>
+          <div class="item-meta">Hutan pinus, flying bike, spot foto · Rp 10.000/orang · buka 08:00</div>
+          <a class="map-btn" href="https://maps.google.com/?q=Kebun+Raya+Baturaden" target="_blank" onclick="event.stopPropagation()">
+            <svg class="pin-svg" viewBox="0 0 16 16" fill="none"><path d="M8 1.5C5.52 1.5 3.5 3.52 3.5 6c0 3.75 4.5 8.5 4.5 8.5s4.5-4.75 4.5-8.5C12.5 3.52 10.48 1.5 8 1.5z" stroke="#185FA5" stroke-width="1.3"/><circle cx="8" cy="6" r="1.75" stroke="#185FA5" stroke-width="1.3"/></svg>
+            Kebun Raya Baturaden
+          </a>
+        </div>
+      </div>
+
+      <div class="item" data-day="3" onclick="toggle(this)">
+        <div class="cb"><svg class="chk" width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2.5 6.5l3 3.5 5-5.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="item-body">
+          <div class="item-top"><span class="item-title"><span class="t-chip">10:00</span>Check-out penginapan &amp; turun ke Purwokerto kota</span>
+            <span class="cost gray">Rp 15rb</span>
+          </div>
+          <div class="item-meta">Isi bensin · jarak Baturaden → Stasiun ~15 km</div>
+        </div>
+      </div>
+
+      <div class="item" data-day="3" onclick="toggle(this)">
+        <div class="cb"><svg class="chk" width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2.5 6.5l3 3.5 5-5.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="item-body">
+          <div class="item-top">
+            <span class="item-title"><span class="t-chip">12:00</span>Makan siang — Sroto Sokaraja</span>
+            <span class="cost gray">Rp 35rb</span>
+          </div>
+          <div class="item-meta">Soto khas Banyumas kuah bumbu kacang · wajib coba!</div>
+          <a class="map-btn" href="https://maps.google.com/?q=Sroto+Sokaraja+Purwokerto" target="_blank" onclick="event.stopPropagation()">
+            <svg class="pin-svg" viewBox="0 0 16 16" fill="none"><path d="M8 1.5C5.52 1.5 3.5 3.52 3.5 6c0 3.75 4.5 8.5 4.5 8.5s4.5-4.75 4.5-8.5C12.5 3.52 10.48 1.5 8 1.5z" stroke="#185FA5" stroke-width="1.3"/><circle cx="8" cy="6" r="1.75" stroke="#185FA5" stroke-width="1.3"/></svg>
+            Sroto Sokaraja
+          </a>
+        </div>
+      </div>
+
+      <div class="item" data-day="3" onclick="toggle(this)">
+        <div class="cb"><svg class="chk" width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2.5 6.5l3 3.5 5-5.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="item-body">
+          <div class="item-top">
+            <span class="item-title"><span class="t-chip">13:00</span>Belanja oleh-oleh</span>
+            <span class="cost gray">Rp 80rb</span>
+          </div>
+          <div class="item-meta">Mendoan kering, getuk goreng, keripik tempe · Jl. Gerilya</div>
+          <a class="map-btn" href="https://maps.google.com/?q=toko+oleh+oleh+Purwokerto+Jl+Gerilya" target="_blank" onclick="event.stopPropagation()">
+            <svg class="pin-svg" viewBox="0 0 16 16" fill="none"><path d="M8 1.5C5.52 1.5 3.5 3.52 3.5 6c0 3.75 4.5 8.5 4.5 8.5s4.5-4.75 4.5-8.5C12.5 3.52 10.48 1.5 8 1.5z" stroke="#185FA5" stroke-width="1.3"/><circle cx="8" cy="6" r="1.75" stroke="#185FA5" stroke-width="1.3"/></svg>
+            Toko oleh-oleh Purwokerto
+          </a>
+        </div>
+      </div>
+
+      <div class="item" data-day="3" onclick="toggle(this)">
+        <div class="cb"><svg class="chk" width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2.5 6.5l3 3.5 5-5.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="item-body">
+          <div class="item-top">
+            <span class="item-title"><span class="t-chip">15:00</span>Santai / ngopi sambil tunggu kereta</span>
+            <span class="cost gray">Rp 20rb</span>
+          </div>
+          <div class="item-meta">Alun-alun Purwokerto atau kafe sekitar stasiun</div>
+          <a class="map-btn" href="https://maps.google.com/?q=Alun-alun+Purwokerto" target="_blank" onclick="event.stopPropagation()">
+            <svg class="pin-svg" viewBox="0 0 16 16" fill="none"><path d="M8 1.5C5.52 1.5 3.5 3.52 3.5 6c0 3.75 4.5 8.5 4.5 8.5s4.5-4.75 4.5-8.5C12.5 3.52 10.48 1.5 8 1.5z" stroke="#185FA5" stroke-width="1.3"/><circle cx="8" cy="6" r="1.75" stroke="#185FA5" stroke-width="1.3"/></svg>
+            Alun-alun Purwokerto
+          </a>
+        </div>
+      </div>
+
+      <div class="item" data-day="3" onclick="toggle(this)">
+        <div class="cb"><svg class="chk" width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2.5 6.5l3 3.5 5-5.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="item-body">
+          <div class="item-top">
+            <span class="item-title"><span class="t-chip">18:30</span>Menuju &amp; kembalikan motor di Stasiun Purwokerto</span>
+          </div>
+          <div class="item-meta">Antar motor ke stasiun jam 19:00 · pastikan kondisi motor baik</div>
+          <a class="map-btn" href="https://maps.google.com/?q=Stasiun+Purwokerto" target="_blank" onclick="event.stopPropagation()">
+            <svg class="pin-svg" viewBox="0 0 16 16" fill="none"><path d="M8 1.5C5.52 1.5 3.5 3.52 3.5 6c0 3.75 4.5 8.5 4.5 8.5s4.5-4.75 4.5-8.5C12.5 3.52 10.48 1.5 8 1.5z" stroke="#185FA5" stroke-width="1.3"/><circle cx="8" cy="6" r="1.75" stroke="#185FA5" stroke-width="1.3"/></svg>
+            Stasiun Purwokerto
+          </a>
+        </div>
+      </div>
+
+      <div class="item" data-day="3" onclick="toggle(this)">
+        <div class="cb"><svg class="chk" width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2.5 6.5l3 3.5 5-5.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="item-body">
+          <div class="item-top"><span class="item-title"><span class="t-chip">19:55</span>Boarding Senja Utama YK ke Jakarta 🎉</span></div>
+          <div class="item-meta">Kode 82Z9EOZ · Ekonomi CC · Kereta 107B · tiba Pasar Senen 00:32 Minggu · motor sudah dikembalikan ✓</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <div class="footer-emoji">🌿</div>
+  <div class="footer-text">Selamat berlibur &amp; semoga perjalanannya lancar!<br>Semoga ziarahnya menjadi berkah. 🤲</div>
+  <div class="footer-note">Checklist tersimpan otomatis di browser ini</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+var KEY = 'pwt-trip-may2026-v2';
+var toastT;
+
+function toggle(el) {
+  el.classList.toggle('done');
+  if (el.classList.contains('done')) {
+    var t = el.querySelector('.item-title').innerText.replace(/\d+:\d+/,'').trim().substring(0,35);
+    showToast('✓ ' + t);
+  }
+  save(); update();
+}
+
+function showToast(msg) {
+  clearTimeout(toastT);
+  var el = document.getElementById('toast');
+  el.textContent = msg; el.classList.add('show');
+  toastT = setTimeout(function(){ el.classList.remove('show'); }, 2200);
+}
+
+function update() {
+  var all = document.querySelectorAll('.item');
+  var done = document.querySelectorAll('.item.done');
+  var pct = all.length ? Math.round(done.length / all.length * 100) : 0;
+  document.getElementById('bar-fill').style.width = pct + '%';
+  document.getElementById('prog-pct').textContent = pct + '%';
+  var lbl = document.getElementById('prog-lbl');
+  if (pct === 0) lbl.textContent = 'Mulai centang item perjalanan kamu!';
+  else if (pct === 100) { lbl.textContent = 'Semua selesai! Selamat berlibur 🎉'; showToast('🎉 Semua item selesai!'); }
+  else lbl.textContent = done.length + ' dari ' + all.length + ' item selesai';
+
+  [1,2,3].forEach(function(d){
+    var da = document.querySelectorAll('[data-day="'+d+'"]');
+    var dd = document.querySelectorAll('[data-day="'+d+'"].done');
+    var el = document.getElementById('c'+d);
+    if(el) el.textContent = dd.length+'/'+da.length;
+  });
+}
+
+function save() {
+  var st = [];
+  document.querySelectorAll('.item').forEach(function(it){ st.push(it.classList.contains('done')?1:0); });
+  try { localStorage.setItem(KEY, JSON.stringify(st)); } catch(e){}
+}
+
+function load() {
+  try {
+    var s = localStorage.getItem(KEY);
+    if(!s) return;
+    var st = JSON.parse(s);
+    document.querySelectorAll('.item').forEach(function(it,i){ if(st[i]) it.classList.add('done'); });
+  } catch(e){}
+}
+
+function toggleBudget() {
+  var b = document.getElementById('bbudget');
+  var c = document.getElementById('bchev');
+  b.classList.toggle('open');
+  c.textContent = b.classList.contains('open') ? '▲' : '▼';
+}
+
+load(); update();
+</script>
+</body>
+</html>
